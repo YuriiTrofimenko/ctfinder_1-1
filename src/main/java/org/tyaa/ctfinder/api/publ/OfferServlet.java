@@ -1679,7 +1679,7 @@ public class OfferServlet extends HttpServlet {
 									// который сейчас кликнул "Присоединиться" в CTFinder)
 									
 									//Находим описание на текущем языке
-									String descriptionString = "-";
+									/* String descriptionString = "-";
 									if(o.getDescription_key() != null
 											&& !o.getDescription_key().equals("")) {
 										Description description = new Description();
@@ -1698,7 +1698,7 @@ public class OfferServlet extends HttpServlet {
 											candidateUser.getEmail()
 											, titleString
 											, descriptionString
-										);
+										); */
 									
 									List al = new ArrayList<>();
 									al.add(HttpRespWords.sent);
