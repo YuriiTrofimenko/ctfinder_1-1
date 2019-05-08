@@ -844,7 +844,7 @@ public class OfferServlet extends HttpServlet {
 												Locale loc = new Locale(currentLanguage.getCode());
 												ResourceBundle bundle =
 														ResourceBundle.getBundle(
-																"org.tyaa.ctfinder.locale.ApplicationResourcesCommon"
+																"locales.ApplicationResourcesCommon"
 																, loc
 															);
 												String collaboratorsCount =

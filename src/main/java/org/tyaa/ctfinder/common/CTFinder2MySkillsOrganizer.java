@@ -18,7 +18,7 @@ public class CTFinder2MySkillsOrganizer {
 	static {
 		FileInputStream serviceAccount = null;
 		try {
-			serviceAccount = new FileInputStream("firebaseServiceAccount.json");
+			serviceAccount = new FileInputStream("WEB-INF/firebaseServiceAccount.json");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

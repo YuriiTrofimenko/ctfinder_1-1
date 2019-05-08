@@ -226,7 +226,7 @@ public class LanguageServlet extends HttpServlet {
 								Locale loc = new Locale(currentLanguage.getCode());
 								ResourceBundle bundle =
 										ResourceBundle.getBundle(
-												"org.tyaa.ctfinder.locale.ApplicationResources" + pageName
+												"locales.ApplicationResources" + pageName
 												, loc
 											);
 								List<DictionaryItem> dictionaryItems =
