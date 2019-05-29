@@ -1667,44 +1667,66 @@ public class OfferServlet extends HttpServlet {
 									
 									// Отправляем сообщение
 									mailer.sendPlainMsg(
-											messageString
-											, subjectString
-											, fromAddressString
-											, fromNameString
-											, toAddressString
-											, toNameString);
+                                                                            messageString
+                                                                            , subjectString
+                                                                            , fromAddressString
+                                                                            , fromNameString
+                                                                            , toAddressString
+                                                                            , toNameString
+                                                                        );
 									
 									// Делаем попытку создать новый узел в веб-приложении "MySkillsOrganizer"
 									// (сработает, если туда хотя бы раз заходил тот же пользователь Google,
 									// который сейчас кликнул "Присоединиться" в CTFinder)
 									
 									//Находим описание на текущем языке
-									/* String descriptionString = "-";
+									String descriptionString = "-";
 									if(o.getDescription_key() != null
-											&& !o.getDescription_key().equals("")) {
+                                                                            && !o.getDescription_key().equals("")) {
 										Description description = new Description();
 										objectifyRun3(
-											o.getDescription_key()
-											, englishLanguage.getId()
-											, description
-											, DescriptionDAO::getDescriptionByKeyAndLang
-											, out
-											, gson
+                                                                                    o.getDescription_key()
+                                                                                    , englishLanguage.getId()
+                                                                                    , description
+                                                                                    , DescriptionDAO::getDescriptionByKeyAndLang
+                                                                                    , out
+                                                                                    , gson
 										);
 										descriptionString = description.getContent();
 									}
 									
-									CTFinder2MySkillsOrganizer.createNode(
+									/* CTFinder2MySkillsOrganizer.createNode(
 											candidateUser.getEmail()
 											, titleString
 											, descriptionString
 										); */
 									
+									String firebaseUserId
+                                                                            = CTFinder2MySkillsOrganizer.getFirebaseUserId(candidateUser.getEmail());
+                                                                        
+                                                                        MySkillsOrganizerNode node = null;
+                                                                        if (firebaseUserId != null) {
+                                                                            node =
+                                                                                new MySkillsOrganizerNode(
+                                                                                    true
+                                                                                    , titleString
+                                                                                    , "1"
+                                                                                    , descriptionString
+                                                                                    , "1"
+                                                                                    , false
+                                                                                    , 100
+                                                                                    , 100
+                                                                                    , 50
+                                                                                );
+                                                                        }
+                                                                        
 									List al = new ArrayList<>();
 									al.add(HttpRespWords.sent);
+                                                                        al.add(firebaseUserId);
+                                                                        al.add(node);
 									RespData rd = new RespData(al);
 									String successJson = gson.toJson(rd);
-									out.print(successJson);
+                                                                        out.print(successJson);
 								} catch (Exception ex) {
 									
 									ObjectifyQueryLauncher.printException(ex, out, gson);

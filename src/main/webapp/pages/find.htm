@@ -943,12 +943,33 @@
 					            cache : false
 					        }).done(function(data) {
 					        	
-					        	if(data.result[0] == "sent"){
-					        		$('#offer-details .modal-content .card-action')
-					        			.html('<p>' + findModalDict.find_modal_request_was_sent + '</p>');
-					        	} else {
-					        		alert('Ошибка отправки запроса');
-					        	}
+                                                    if (data.result[0] === "sent") {
+                                                        $('#offer-details .modal-content .card-action')
+                                                                .html('<p>' + findModalDict.find_modal_request_was_sent + '</p>');
+                                                        if(data.result[1] && data.result[2]){
+                                                            var firebaseUId = data.result[1];
+                                                            var newFirebaseNode = data.result[2];
+
+                                                            $.ajax({
+                                                                url: "https://us-central1-my-skills-organizer.cloudfunctions.net/addNode?uId=" + firebaseUId,
+                                                                type: "POST",
+                                                                data: newFirebaseNode,
+                                                                crossDomain: true,
+                                                                cache: false
+                                                            }).done(function (firebaseData) {
+                                                                if (firebaseData && (firebaseData.results)) {
+                                                                    alert("Добавлен новый узел задачи в Ваш MySkillsOrganizer");
+                                                                } else {
+                                                                    alert("Не удалось добавить новый узел задачи в Ваш MySkillsOrganizer");
+                                                                }
+                                                            }).fail(function (jqXHR, textStatus, errorThrown) {
+                                                                // alert("Ошибка отправки запроса: " + jqXHR);
+                                                            });
+
+                                                        }
+                                                    } else {
+                                                        alert('Ошибка отправки запроса');
+                                                    }
 					        }).fail(function(jqXHR, textStatus, errorThrown) {
 								  
 								alert("Ошибка отправки запроса: " + jqXHR);
